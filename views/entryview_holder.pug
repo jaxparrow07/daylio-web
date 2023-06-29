@@ -1,0 +1,82 @@
+div(id="entryview-holder",class="vstack entry-viewer visually-hidden")
+  // ======= B A S I C   I N F O =======
+
+  div(class="hstack")
+    button(id="close-entry", class="mx-2 btn text-secondary-emphasis align-start")
+      | ◀
+    h1(id="entry-title", class="col-6")
+      | Title
+  div(class="hstack gap-5")
+    tr
+      div.hstack
+        h6(class="material-symbols-outlined mx-1")
+          | schedule
+        h6(id="entry-time", class="align-baseline")
+          | Time
+    
+      div.hstack
+        h6(class="material-symbols-outlined mx-1")
+          | calendar_month
+        h6(id="entry-day", class="align-baseline")
+          | Day
+
+      div.hstack
+        h6(class="material-symbols-outlined mx-1")
+          | directions_run
+        h6(id="entry-activity-count", class="align-baseline")
+          | Activities
+
+      div.hstack
+        h6(id="entry-mood-icon", class="material-symbols-outlined mx-1")
+          | mood
+        h6(id="entry-mood-text", class="align-baseline")
+          | Mood Text
+
+  // ======= A C T I V I T I E S ======
+
+  div(class="entrylist-scroll")
+
+    div(class="hstack")
+      h5(id="entry-title", class="w-100")
+        | Activities
+      button(id="ac-toggle-all", class="btn text-secondary-emphasis align-end w-25")
+        | toggle all
+
+    div(class="p-2 my-2")
+      div(class="grid")
+
+        //- Iterates through every single activity group
+        for activity_group, id in vital_data.available_activity_groups
+         div(class="card p-1 my-1 bg-secondary-subtle")
+          //- Included the group id to collapse/view the view that's been clicked
+          div(class="hstack py-1 px-2 w-100 ac-group-header btn text-start", data-group-id=`${id}`)
+            label(class="text-secondary-emphasis w-100")
+              | #{activity_group}
+              // Activity group name
+
+            div(id=`ac-group-${id}-collapse`, class="align-end activity-collapse-icon collapsed")
+              i(class="material-symbols-outlined")
+                | expand_more
+
+          //- Group id based element to collapse/view
+          div(id=`ac-group-${id}-items`, class="hstack column-gap-0 gap-0 overflow-x-auto visually-hidden")
+
+            //- Iterates through all the activities, if it's present in the current group, then add it.
+            for activity, act_index in vital_data.available_activities
+
+              if (activity.group == id)
+
+                div(class="container-fluid vstack my-2", style="max-height: auto; max-width: 12vh;")
+                  div(id=`ac-item-${act_index}`, class="activity-dot position-relative m-1 ac-item")
+                    img(src=`assets/activity_icons/ic_${activity.icon}.png`, class="position-absolute top-50 start-50 translate-middle activity-dot-icon-active")
+                  label(class="text-center", style="font-size: 2vh; width: 9.5vh;")
+                    | #{activity.name}
+    
+
+    // ======= N O T E =======
+    div(id="entry-note-viewer")
+      h5
+        | Note
+      div(class="card p-4 h-50 entrylist-scroll")
+
+        p(id="entry-note-body", style="max-width: 95% !important;")

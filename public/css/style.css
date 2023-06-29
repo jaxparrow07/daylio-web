@@ -1,0 +1,184 @@
+:root {
+  --daylio-accent-color:  #16ae89;
+}
+
+.entrylist-view {
+  max-width: 30% !important;
+  max-height: 90vh;
+}
+
+.entrylist-scroll {
+  overflow-y: auto;
+}
+
+.entry-search {
+  max-height: 2.5rem;
+  min-height: 2.5rem;
+}
+
+.entry-viewer {
+  max-width: 65% !important;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* ===== D A Y L I O   C O L O R S ===== */
+
+.daylio-bg {
+  background-color: var(--daylio-accent-color) !important;
+}
+
+.daylio-color {
+  color: var(--daylio-accent-color);
+
+}
+/* ===== M O O D  C O L O R S ===== 
+
+  => 1 being the highest ( good ), 5 being the lowest ( bad )
+*/
+
+.mood-pill-1 {
+  background-color: #14AD88;
+}
+
+.mood-pill-2 {
+  background-color: #1ECA49;
+}
+
+.mood-pill-3 {
+  background-color: #5478A6;
+}
+
+.mood-pill-4 {
+  background-color: #F78B1D;
+}
+
+.mood-pill-5 {
+  background-color: #FF2B2B;
+}
+
+/* ===== A C T I V I T Y  S T Y L E S ===== */
+
+.activity-dot {
+  height: 8vh;
+  width: 8vh;
+  border-color: var(--daylio-accent-color);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.activity-dot-active {
+  background-color: var(--daylio-accent-color);
+}
+
+.activity-dot-active .activity-dot-icon-active {
+  filter: invert(98%) sepia(0%) saturate(5404%) hue-rotate(292deg) brightness(120%) contrast(107%);
+}
+
+/* Generated using https://isotropic.co/tool/hex-color-to-css-filter/ */
+.activity-dot-icon {
+  height: 3vh;
+  width: 3vh;
+  filter: invert(98%) sepia(0%) saturate(5404%) hue-rotate(292deg) brightness(120%) contrast(107%);
+}
+
+.activity-dot-icon-active {
+  height: 3vh;
+  width: 3vh;
+  filter: invert(70%) sepia(99%) saturate(4858%) hue-rotate(135deg) brightness(97%) contrast(84%);
+}
+
+
+/* ===== C H A R T I S T ===== */
+
+.ct-label {
+  color: var(--bs-secondary-text) !important;
+}
+
+.ct-grid {
+  stroke: var(--bs-secondary) !important;
+  opacity: 0.6;
+}
+
+/* => Pen by Sarah Drasner ( Line Animation )
+
+Codepen : https://codepen.io/sdras/pen/oxNmRM
+
+*/
+.ct-chart svg {
+  width: 100%;
+}
+
+.ct-series-a {
+  stroke-dasharray: 2500;
+  stroke-dashoffset: 2500;
+  animation: draw 8s 0s cubic-bezier(.24,0,.2,1.08) both;
+  fill: none;
+  stroke: #ada8b6;
+  opacity: 0.8;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+
+/* ===== A C T I V I T Y    G R O U P    C O L L A P S E ===== */
+
+.activity-collapse-icon {
+  height: 4vh;
+  width: 4vh;
+  border-color: grey;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 50%;
+  display: inline-block;
+  animation: rotate-icon-def 0.3s ease forwards;
+}
+
+.activity-collapse-icon:hover {
+  background-color: grey;
+  cursor: pointer;
+}
+
+.activity-collapse-icon:hover i {
+  color: white;
+}
+
+.collapsed {
+  animation: rotate-icon 0.3s ease forwards;
+}
+
+.ac-group-header:hover, .ac-group-header *:hover {
+  cursor: pointer;
+}
+
+/* ===== A N I M A T I O N S ===== */
+
+/*
+  => For smoothly rotating the collapse icon
+*/
+
+@keyframes rotate-icon {
+    0% {
+        rotate: 0deg;
+    }
+    100% {
+        rotate: -90deg;
+    }
+}
+
+@keyframes rotate-icon-def {
+    0% {
+        rotate: -90deg;
+    }
+    100% {
+        rotate: 0deg;
+    }
+}
+
+

@@ -1,0 +1,29 @@
+div(id="dashboard-holder", class="vstack entry-viewer")
+  // ======= B A S I C =======
+  h1
+    | Dashboard
+  div
+    h6(class="align-baseline")
+      | Daylio Web ( unofficial )
+  hr
+
+  h4
+    | #{metadata.numberOfEntries} entries - #{metadata.longestDaysInRow} days in a row
+  hr
+
+  div(class="vstack entrylist-scroll")
+
+    div(class="hstack")
+      h5(class="w-100")
+        | Mood Graph
+
+      //- The year options are added via client-side javascript code
+      select(id="mood-graph-year", class="align-end w-25 mx-1 form-select")
+
+      // Month options are disabled on-demand ( if no entries were found )
+      select(id="mood-graph-month", class="align-end w-25 mx-1 form-select")
+        for month, index in vital_data.months
+          option(value=index)
+            | #{month}
+
+    div(class="ct-chart h-75 mx-2")

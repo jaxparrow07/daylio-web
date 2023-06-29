@@ -1,0 +1,28 @@
+each entry, index in entry_data
+  //- ======= E N T R Y  =======
+  //- => The button holds the ENTRY ID
+
+  button(type="button", id=`entry-${index}`, data-entry-id=`${index}`,
+    class="list-group-item list-group-item-action d-flex justify-content-between align-items-start entry-list-item")
+    
+    //- => Preview activites with extra text
+    div(class="ms-2 me-auto")
+      div.fw-bold
+
+        //- If an entry with same date ( multi entry day ) exists, include the time
+        if ( index + 1 < entry_data.length && entry_data[index + 1].date_formatted === entry.date_formatted)
+          | ↱ #{entry.date_formatted} (#{entry.time})
+        else
+          | #{entry.date_formatted}
+
+      //- Some plural checks
+      if (Object.keys(entry.activities).length > 2)
+        | #{vital_data.available_activities[`${entry.activities[0]}`].name} • #{vital_data.available_activities[`${entry.activities[1]}`].name} ... + #{`${Object.keys(entry.activities).length - 2} more`}
+      else if (Object.keys(entry.activities).length > 1)
+        | #{vital_data.available_activities[`${entry.activities[0]}`].name} • #{vital_data.available_activities[`${entry.activities[1]}`].name}
+      else
+        | No activities
+      
+    //- => Mood
+    div(class=`badge rounded-pill mood-pill-${vital_data.available_mood_groups[entry.mood]}`)
+      | #{vital_data.available_moods[`${entry.mood}`]}

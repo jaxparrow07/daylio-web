@@ -1,0 +1,42 @@
+extends default
+
+block content
+
+  nav(class="navbar justify-center")
+    div(class="container-fluid")
+      h3.daylio-color
+        | #{title}
+      i(id="change-theme", class="bg-secondary-subtle mx-2 btn material-symbols-outlined")
+        | light_mode
+
+
+  // ======= L O A D I N G =======
+  // => Will be showing until the site finishes loading the data
+  div(id="loader-div", class="container-fluid w-25 h-25 gap-3 position-absolute top-50 start-50 translate-middle")
+
+    div(class="position-absolute top-50 start-50 translate-middle")
+      div(class="spinner-border daylio-color")
+
+
+  // ======= M A I N =======
+  // => Horizontal Container that holds the search view and the entry info viewer
+  div(id="main-div" ,class="container-fluid hstack gap-3 visually-hidden")
+
+    // ======= L I S T  V I E W =======
+    div(class="vstack entrylist-view")
+
+      input.col(class="form-control my-2 entry-search", placeholder="Search through dates, notes, moods ...", id="entry-search")
+
+      // => Scrollable
+      div(class="entrylist-scroll")
+        ul(class="list-group", id="entry-list-view")
+        
+          // ======= E N T R I E S  =======
+          // => Each day entry gets added to the list view. The search functions toggles their visibility accordihly (js)
+          include entrylist_holder
+
+    // Individual Entry viewer
+
+    include dashboard_holder
+    
+    include entryview_holder

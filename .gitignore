@@ -1,0 +1,4 @@
+data
+node_modules/
+public/assets/activity_icons/*
+*.daylio
