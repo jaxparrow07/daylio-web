@@ -6,17 +6,18 @@ Written in node js
 
 ## Demo
 #### Dashboard
-![Dashboard gif](img/demo.gif)
+![demo](https://github.com/jaxparrow07/daylio-web/assets/36300128/cd9ca01e-b599-4b32-bdc5-5104283c52f9)
+
 #### Screenshots
-| ![Screenshot](img/dark_activities.png) | ![Screenshot](img/light_note.png) |
+| ![dark_activities](https://github.com/jaxparrow07/daylio-web/assets/36300128/3394db27-b736-40e9-95c5-5851ff491562) |![light_note](https://github.com/jaxparrow07/daylio-web/assets/36300128/03895b72-3f18-4888-acbd-51a54fb8054f) |
 |---|---|
 
 ## Running
 
-**If you haven't already, install ![node.js](https://nodejs.org/en)**
+**If you haven't already, install [node.js](https://nodejs.org/en)**
 
 * Clone or download this repo
-* Export your **Daylio** backup ( .daylio file ) and copy it to the repo directory
+* [Export](#exporting-your-daylio-entries--backup-) your **Daylio** backup ( .daylio file ) and copy it to the repo directory
 * Then, execute the following commands
     *  _NOTE : The `node` and `npm` would differ depending on the platform you're using._
 ```sh
@@ -24,10 +25,10 @@ Written in node js
   node server.js <daylio backup file>
 ```
 
-* Head to http://localhost:<PORT_NUMBER> ( or just simply open the url displayed in the terminal )
+* Open the url displayed in the terminal )
 
 
-You'll only have to pass the daylio backup once, it'd be extracted ( encoded format ) in the `data` folder.
+**You'll only have to pass the daylio backup once, it'd be extracted ( encoded format ) in the `data` folder.**
 
 To update your local entry backup, re-run the server while passing your new daylio backup.
 
@@ -40,24 +41,24 @@ To update your local entry backup, re-run the server while passing your new dayl
 - Notes
 - Search
 
-## Uses
-#### CSS
- - ![Bootstrap](https://getbootstrap.com/)
- - ![Chartist](https://gionkunz.github.io/chartist-js/)
- - ![Material Icons](https://fonts.google.com/icons)
- 
- #### Packages
- - ![Express.js](https://expressjs.com/) ( web server )
- - ![Pug.js](https://pugjs.org/) ( HTML pre-processor )
- - ![Moment.js](https://momentjs.com/)
- - Other
-    * path
-    * fs 
-    * extract-zip
-
 #### Code Snippet
-* Chartist line animation: ![Pen](https://codepen.io/sdras/pen/oxNmRM)
+* Chartist line animation: [Pen](https://codepen.io/sdras/pen/oxNmRM)
 ## Help
 
 ### Exporting your daylio entries ( backup )
 // TO-DO
+
+## Uses
+#### CSS
+ - [Bootstrap](https://getbootstrap.com/)
+ - [Chartist](https://gionkunz.github.io/chartist-js/)
+ - [Material Icons](https://fonts.google.com/icons)
+ 
+ #### Packages
+ - [Express.js](https://expressjs.com/) ( web server )
+ - [Pug.js](https://pugjs.org/) ( HTML pre-processor )
+ - [Moment.js](https://momentjs.com/)
+ - Other
+    * path
+    * fs 
+    * extract-zip
