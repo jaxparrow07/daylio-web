@@ -1,4 +1,4 @@
 data
 node_modules/
-public/assets/activity_icons/*
+public/assets/activity_icons/*.png
 *.daylio
