@@ -30,7 +30,8 @@ Written in node.js
 
 ```sh
 node server.js backup_2023_06_26.daylio
-  
+
+Output:  
 info: starting server
 info: loading backup - backup_2023_06_26.daylio
 info: decoding data
