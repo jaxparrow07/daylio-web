@@ -213,14 +213,14 @@ function getStructuredEntries() {
         *
         * NOTE: To make more sense, the highest mood ( Awful ) should be the bottom and the lowest ( Happy ) should be the top
         * 
-        *   => So, swapping the scores with a revered ( 1 -> 5, 5 -> 1 ... )
+        *   => So, swapping the scores with a reversed array ( 1 -> 5, 5 -> 1 ... )
         */   
         reverseMoodData = [ 5, 4, 3, 2, 1 ]
-        entryMood = reverseMoodData[entryMood - 1]
+        entryMood = reverseMoodData[ entryMood - 1 ]
 
 
         /*
-        * NOTE : Looks unreadable, but here's an explanation of what happens
+        * NOTE:
         *
         * => 1 If year doesn't exist in the data, create a new object
         * => 2 If month doesn't exist in the year, create a new object
@@ -229,21 +229,21 @@ function getStructuredEntries() {
         */ 
 
         // 1
-        if (Object.keys(structuredData).indexOf( String(entryYear) ) < 0)
-            structuredData[String(entryYear)] = {}
+        if (!structuredData[entryYear])
+            structuredData[ entryYear ] = {}
 
         // 2
-        if (Object.keys(structuredData[String(entryYear)]).indexOf( String(entryMonth) ) < 0)
-            structuredData[String(entryYear)][String(entryMonth)] = {}
+        if (!structuredData[entryYear][entryMonth])
+            structuredData[ entryYear][ entryMonth] = {}
 
         // 3
-        if (structuredData[String(entryYear)][String(entryMonth)][ String(entryDay) ]) {
+        if (structuredData[entryYear][entryMonth][entryDay]) {
 
-            structuredData[String(entryYear)][String(entryMonth)][String(entryDay)] += entryMood
-            structuredData[String(entryYear)][String(entryMonth)][String(entryDay)] /= 2
+            structuredData[ entryYear ][ entryMonth ][ entryDay ] += entryMood
+            structuredData[ entryYear ][ entryMonth ][ entryDay ] /= 2
 
         } else {
-            structuredData[String(entryYear)][String(entryMonth)][String(entryDay)] = entryMood
+            structuredData[ entryYear ][ entryMonth ][ entryDay ] = entryMood
         }
 
 
