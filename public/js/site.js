@@ -19,14 +19,14 @@ function isThere(object, segment) {
 
 function filterEntries() {
     var input, filter, list_item, list_view, i
-    input = document.getElementById("entry-search")
+    input = document.getElementById('entry-search')
     filter = input.value.toUpperCase()
 
     // Main list item holder
-    list_view = document.getElementById("entry-list-view")
+    list_view = document.getElementById('entry-list-view')
 
     // Child elements by class name used
-    list_item = list_view.getElementsByClassName("entry-list-item")
+    list_item = list_view.getElementsByClassName('entry-list-item')
     
     for (i = 0; i < list_item.length; i++) {
 
@@ -39,9 +39,9 @@ function filterEntries() {
         mood_name = VITAL_DATA.available_moods[ ENTRY_DATA[entryId].mood ]
 
         if ( isThere(entry_date, filter) || isThere(journal_entry, filter) || isThere(journal_title, filter) || isThere(mood_name, filter) ) {
-            list_item[i].classList.remove("visually-hidden")
+            list_item[i].classList.remove('visually-hidden')
         } else {
-            list_item[i].classList.add("visually-hidden")
+            list_item[i].classList.add('visually-hidden')
         }
 
     }
@@ -63,8 +63,8 @@ function loadEntry(element) {
     element.classList.add('active')
 
     // Toggling visibility
-    document.getElementById("dashboard-holder").classList.add("visually-hidden")
-    document.getElementById("entryview-holder").classList.remove("visually-hidden")
+    document.getElementById('dashboard-holder').classList.add('visually-hidden')
+    document.getElementById('entryview-holder').classList.remove('visually-hidden')
 
 
     let entryId = element.dataset.entryId
@@ -91,24 +91,24 @@ function loadEntry(element) {
 
     document.getElementById('entry-title').innerHTML = ENTRY_DATA[entryId].journal[0] || ENTRY_DATA[entryId].date_formatted
     document.getElementById('entry-time').innerHTML =  ENTRY_DATA[entryId].time
-    document.getElementById('entry-activity-count').innerHTML =  Object(ENTRY_DATA[entryId].activities).length + " activities"
+    document.getElementById('entry-activity-count').innerHTML =  Object(ENTRY_DATA[entryId].activities).length + ' activities'
     document.getElementById('entry-mood-text').innerHTML = VITAL_DATA.available_moods[ ENTRY_DATA[entryId].mood ]
 
     document.getElementById('entry-mood-icon').innerHTML = moodMaterialIcon[ VITAL_DATA.available_mood_groups[ [ENTRY_DATA[entryId].mood ] ] - 1]
 
     document.getElementById('entry-day').innerHTML = ENTRY_DATA[entryId].day
 
-    document.getElementById('entry-note-viewer').classList.remove("visually-hidden")
+    document.getElementById('entry-note-viewer').classList.remove('visually-hidden')
     document.getElementById('entry-note-body').innerHTML = entryNote
     if (!entryNote)
-        document.getElementById('entry-note-viewer').classList.add("visually-hidden")
+        document.getElementById('entry-note-viewer').classList.add('visually-hidden')
 
 
 }
 
 // ======================= L I S T E N E R    F U N C T I O N S =======================
 
-const SearchInputHandler = function() {
+const searchInputHandler = function() {
   filterEntries()
 }
 
@@ -117,15 +117,15 @@ const toggleTheme = function() {
 
     // Bootstrap attribute ->
 
-    if (document.querySelectorAll('body')[0].dataset.bsTheme === "dark") {
-        document.getElementById("change-theme").innerHTML = "dark_mode"
-        document.querySelectorAll('body')[0].dataset.bsTheme = "light"
+    if (document.querySelectorAll('body')[0].dataset.bsTheme === 'dark') {
+        document.getElementById('change-theme').innerHTML = 'dark_mode'
+        document.querySelectorAll('body')[0].dataset.bsTheme = 'light'
     } else {
-        document.getElementById("change-theme").innerHTML = "light_mode"
-        document.querySelectorAll('body')[0].dataset.bsTheme = "dark"
+        document.getElementById('change-theme').innerHTML = 'light_mode'
+        document.querySelectorAll('body')[0].dataset.bsTheme = 'dark'
     }
 
-    localStorage.setItem("theme", document.querySelectorAll('body')[0].dataset.bsTheme );
+    localStorage.setItem('theme', document.querySelectorAll('body')[0].dataset.bsTheme );
 
         
 }
@@ -137,18 +137,18 @@ const collapseToggle = function(groupId) {
     const collapseView = document.getElementById(`ac-group-${groupId}-items`)
 
     if (collapseButton.classList.contains('collapsed')) {
-        collapseButton.classList.remove("collapsed")
-        collapseView.classList.remove("visually-hidden")
+        collapseButton.classList.remove('collapsed')
+        collapseView.classList.remove('visually-hidden')
     } else {
-        collapseButton.classList.add("collapsed")
-        collapseView.classList.add("visually-hidden")
+        collapseButton.classList.add('collapsed')
+        collapseView.classList.add('visually-hidden')
     }
 
 }
 
 const closeEntry = function() {
-    document.getElementById("dashboard-holder").classList.remove("visually-hidden")
-    document.getElementById("entryview-holder").classList.add("visually-hidden")
+    document.getElementById('dashboard-holder').classList.remove('visually-hidden')
+    document.getElementById('entryview-holder').classList.add('visually-hidden')
     loadEntry(null)
 
 }
@@ -164,8 +164,8 @@ const toggleAllActitivites = function() {
 // When a year has been selected in the dropdown selector, update the month dropdown ( to the top enabled one ), and the graph
 const updateMoodGraphMonths = function() {
 
-    year = document.getElementById("mood-graph-year").value
-    month = document.getElementById("mood-graph-month")
+    year = document.getElementById('mood-graph-year').value
+    month = document.getElementById('mood-graph-month')
 
     var isSelected = false
 
@@ -196,8 +196,8 @@ const updateMoodGraphMonths = function() {
 // When a month has been selected in the dropdown selector, update the graph
 const updateMoodGraph = function() {
 
-    year = document.getElementById("mood-graph-year").value
-    month = document.getElementById("mood-graph-month").value
+    year = document.getElementById('mood-graph-year').value
+    month = document.getElementById('mood-graph-month').value
 
     loadMoodChart(getMonthMoodArray(year, month))
 
@@ -206,16 +206,16 @@ const updateMoodGraph = function() {
 
 function initListeners() {
 
-    entry_search = document.getElementById("entry-search")
-    entry_search.addEventListener('input', SearchInputHandler)
-    entry_search.addEventListener('propertychange', SearchInputHandler)
+    entry_search = document.getElementById('entry-search')
+    entry_search.addEventListener('input', searchInputHandler)
+    entry_search.addEventListener('propertychange', searchInputHandler)
 
-    document.getElementById("change-theme").addEventListener('click', toggleTheme)
-    document.getElementById("close-entry").addEventListener('click', closeEntry)
-    document.getElementById("ac-toggle-all").addEventListener('click', toggleAllActitivites)
+    document.getElementById('change-theme').addEventListener('click', toggleTheme)
+    document.getElementById('close-entry').addEventListener('click', closeEntry)
+    document.getElementById('ac-toggle-all').addEventListener('click', toggleAllActitivites)
 
-    document.getElementById("mood-graph-year").addEventListener('change', updateMoodGraphMonths)
-    document.getElementById("mood-graph-month").addEventListener('change', updateMoodGraph)
+    document.getElementById('mood-graph-year').addEventListener('change', updateMoodGraphMonths)
+    document.getElementById('mood-graph-month').addEventListener('change', updateMoodGraph)
 
     document.querySelectorAll('.entry-list-item').forEach(occurence => {
 
@@ -313,13 +313,13 @@ function loadMoodChart(dataSeries) {
 // YEAR and MONTH selection ( dropdowns )
 function loadDateDropDowns() {
 
-    let yearHolder = document.getElementById("mood-graph-year")
-    let monthHolder = document.getElementById("mood-graph-month")
+    let yearHolder = document.getElementById('mood-graph-year')
+    let monthHolder = document.getElementById('mood-graph-month')
 
     let yearArray = Object.keys(STRUCTURED_DATA).reverse()
 
     for ( yearItem in yearArray ) {
-        let option = document.createElement("option")
+        let option = document.createElement('option')
         option.value = yearArray[yearItem]
         option.text = yearArray[yearItem]
         yearHolder.add(option)
@@ -332,15 +332,15 @@ function loadDateDropDowns() {
 }
 
 function loadMain() {
-    document.getElementById("loader-div").classList.add("visually-hidden")
-    document.getElementById("main-div").classList.remove("visually-hidden")
+    document.getElementById('loader-div').classList.add('visually-hidden')
+    document.getElementById('main-div').classList.remove('visually-hidden')
 }
 
 // ======================= E N T R Y =======================
 
 async function main() {
 
-    if(document.querySelectorAll('body')[0].dataset.bsTheme != localStorage.getItem("theme"))
+    if(document.querySelectorAll('body')[0].dataset.bsTheme != localStorage.getItem('theme'))
         toggleTheme()
 
 

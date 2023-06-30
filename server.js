@@ -9,18 +9,17 @@ const app = express()
 const appArgs = process.argv.slice(2)
 
 const DAYLIO_BACKUP = appArgs[0]
-
-let daylio_data
+let DAYLIO_DATA
 
 
 /* 
-======= R E N D E R    D A T A ( ID Ordered Entries ) ======
+======= E N T R Y    D A T A ( ID Ordered Entries ) ======
 *
 * => Used by pug to render the entry elements ( static )
 * => Responsible for their ids, groups and non-human-readable data
 */
 
-function getRenderData(raw_data) {
+function getEntryData(rawData) {
 
   /* Render data format:
 
@@ -43,21 +42,21 @@ function getRenderData(raw_data) {
   */
 
   var entry_data = []
-  const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday "]
+  const daysOfWeek = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ]
 
-  for (const daily_entry in raw_data.dayEntries) {
+  for (const daily_entry in rawData.dayEntries) {
 
-    const current_entry = raw_data.dayEntries[daily_entry]
+    const current_entry = rawData.dayEntries[daily_entry]
 
     const time_obj = moment.unix((current_entry.datetime + current_entry.timeZoneOffset ) / 1000).utc()
 
-    const date_formatted = time_obj.format("Do MMM YYYY")
-    const time_formatted = time_obj.format("hh:mm A")
+    const date_formatted = time_obj.format('Do MMM YYYY')
+    const time_formatted = time_obj.format('hh:mm A')
 
     const day = daysOfWeek[time_obj.day()]
 
     // Rich text editor exports notes with markdown template by default, but the mini editor doesn't
-    const note_formatted = (current_entry.note).replaceAll(`\n`,"<br>")
+    const note_formatted = (current_entry.note).replaceAll(`\n`,'<br>')
 
     entry_data[daily_entry] = {
       id: current_entry.id,
@@ -83,7 +82,7 @@ function getRenderData(raw_data) {
 * => Responsible for showing activity names, groups, and mood names
 *
 */
-function getReadableData(raw_data) {
+function getReadableData(rawData) {
 
   /* Readable data format:
 
@@ -115,19 +114,19 @@ function getReadableData(raw_data) {
   var activities = {}
   var activity_groups = {} 
 
-  for (const i in raw_data.tags) {
+  for (const i in rawData.tags) {
 
-      activities[raw_data.tags[i].id] = {}
+      activities[rawData.tags[i].id] = {}
 
-      activities[raw_data.tags[i].id].name = raw_data.tags[i].name
-      activities[raw_data.tags[i].id].group = raw_data.tags[i].id_tag_group
-      activities[raw_data.tags[i].id].icon = raw_data.tags[i].icon
+      activities[rawData.tags[i].id].name = rawData.tags[i].name
+      activities[rawData.tags[i].id].group = rawData.tags[i].id_tag_group
+      activities[rawData.tags[i].id].icon = rawData.tags[i].icon
 
   }
 
 
-  for (const i in raw_data.tag_groups) {
-    activity_groups[raw_data.tag_groups[i].id] = raw_data.tag_groups[i].name
+  for (const i in rawData.tag_groups) {
+    activity_groups[rawData.tag_groups[i].id] = rawData.tag_groups[i].name
   }
 
   var moods = {}
@@ -135,11 +134,11 @@ function getReadableData(raw_data) {
 
   var ordered_mood_list = []
 
-  for (const i in raw_data.customMoods) {
+  for (const i in rawData.customMoods) {
 
-    moods[raw_data.customMoods[i].id] = raw_data.customMoods[i].custom_name
-    mood_groups[raw_data.customMoods[i].id] = raw_data.customMoods[i].mood_group_id
-    ordered_mood_list[i] = raw_data.customMoods[i].custom_name
+    moods[rawData.customMoods[i].id] = rawData.customMoods[i].custom_name
+    mood_groups[rawData.customMoods[i].id] = rawData.customMoods[i].mood_group_id
+    ordered_mood_list[i] = rawData.customMoods[i].custom_name
 
   }
 
@@ -151,7 +150,7 @@ function getReadableData(raw_data) {
     available_mood_groups: mood_groups,
     ordered_mood_list: ordered_mood_list,
 
-    months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    months: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]
 
   }
 
@@ -191,8 +190,8 @@ function getStructuredEntries() {
     var structuredData = {}
 
 
-    let ENTRY_DATA = getRenderData(daylio_data)
-    let VITAL_DATA = getReadableData(daylio_data)
+    let ENTRY_DATA = getEntryData(DAYLIO_DATA)
+    let VITAL_DATA = getReadableData(DAYLIO_DATA)
 
     // Iterating through unstructured data ( Array-like )
 
@@ -254,11 +253,11 @@ function getStructuredEntries() {
 }
 
 // ======= M E T A D A T A ======
-function getMetadata(raw_data) {
+function getMetadata(rawData) {
   metadata = {
 
-    longestDaysInRow: raw_data.daysInRowLongestChain,
-    numberOfEntries: raw_data.metadata.number_of_entries
+    longestDaysInRow: rawData.daysInRowLongestChain,
+    numberOfEntries: rawData.metadata.number_of_entries
   }
 
   return metadata
@@ -282,7 +281,7 @@ function prepareIcons() {
   const PUBLIC_ICONS = '/public/assets/activity_icons'
   const LOCAL_ICONS = '/activity_icons'
 
-  availableActivities = getReadableData(daylio_data).available_activities
+  availableActivities = getReadableData(DAYLIO_DATA).available_activities
 
   console.log(`info: loading ${Object.keys(availableActivities).length} icons`)
 
@@ -312,9 +311,9 @@ function prepareServer() {
 
   // Decodes and loads the base64-encoded data
   // NOTE: Having this file decoded PREVENTS 'accidental' data disclosure
-  let rawData = fs.readFileSync(__dirname + "/data/backup.daylio").toString()
+  let rawData = fs.readFileSync(__dirname + '/data/backup.daylio').toString()
   let bufferData = new Buffer.from(rawData, 'base64')
-  daylio_data = JSON.parse(bufferData.toString('utf-8'))
+  DAYLIO_DATA = JSON.parse(bufferData.toString('utf-8'))
 
   prepareIcons()
 
@@ -322,13 +321,13 @@ function prepareServer() {
 
 function loadServer() {
 
-  let ENTRY_DATA = getRenderData(daylio_data)
-  let VITAL_DATA = getReadableData(daylio_data)
-  let META_DATA = getMetadata(daylio_data)
+  let ENTRY_DATA = getEntryData(DAYLIO_DATA)
+  let VITAL_DATA = getReadableData(DAYLIO_DATA)
+  let META_DATA = getMetadata(DAYLIO_DATA)
 
   app.get('/', (req, res) => {
     res.render('index', {
-      title: "Daylio",
+      title: 'Daylio',
       entry_data: ENTRY_DATA,
       vital_data: VITAL_DATA,
       metadata: META_DATA
