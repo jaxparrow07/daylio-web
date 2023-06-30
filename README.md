@@ -1,6 +1,6 @@
 # daylio-web
 
-An unofficial daylio client ( read-only now ), to view your entries, notes, and moods in your browser locally using your **Daylio Backup**.
+An unofficial daylio client ( read-only now ), to view your entries, notes, and moods in your browser(PC) locally using your **Daylio Backup**.
 
 Written in node.js
 
