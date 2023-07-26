@@ -54,8 +54,6 @@ To update your local entry backup, re-run the server while passing your new dayl
 - Adding Entries [ TO-DO ]
 - Goals [ TO-DO ]
 
-#### Code Snippet
-* Chartist line animation: [Pen](https://codepen.io/sdras/pen/oxNmRM)
 ## Help
 
 ### Exporting your daylio entries ( backup )
@@ -76,6 +74,9 @@ To update your local entry backup, re-run the server while passing your new dayl
     * path
     * fs 
     * extract-zip
+
+#### Code Snippet
+- Chartist line animation: [Pen](https://codepen.io/sdras/pen/oxNmRM)
 
 #### Icon assets
 I pulled the activity icons from the Daylio app using apktool.
